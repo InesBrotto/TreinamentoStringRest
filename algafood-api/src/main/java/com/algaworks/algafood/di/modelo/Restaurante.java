@@ -1,22 +1,42 @@
 package com.algaworks.algafood.di.modelo;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Restaurante {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String nome;
 	private BigDecimal taxaFrete;
+	@ManyToOne
+	private Cozinha cozinha;
 
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "restaurante_forma_pagamento", joinColumns = @JoinColumn(name = "restaurante_id"), inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
+	private List<FormaPagamento> formasPagamento = new ArrayList<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "restaurante")
+	private List<Produto> produtos = new ArrayList<>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -39,6 +59,30 @@ public class Restaurante {
 
 	public void setTaxaFrete(BigDecimal taxaFrete) {
 		this.taxaFrete = taxaFrete;
+	}
+
+	public Cozinha getCozinha() {
+		return cozinha;
+	}
+
+	public void setCozinha(Cozinha cozinha) {
+		this.cozinha = cozinha;
+	}
+
+	public List<FormaPagamento> getFormasPagamento() {
+		return formasPagamento;
+	}
+
+	public void setFormasPagamento(List<FormaPagamento> formasPagamento) {
+		this.formasPagamento = formasPagamento;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	@Override

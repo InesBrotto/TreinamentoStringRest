@@ -4,22 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonRootName;
+import javax.persistence.ManyToOne;
 
 @Entity
-// muda o nome, para o XML, do no principal 
-@JsonRootName("cozinha")
-public class Cozinha {
+public class Produto {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	// retira o campo da apresentacao do XML/JSON
-	//@JsonIgnore
-	// Muda o nome do campo que sera mostrado no XML/JSON
-	//@JsonProperty("titulo")
+
+	private String descricao;
 	private String nome;
+	private Double preco;
+	private boolean ativo;
+
+	@ManyToOne
+	private Restaurante restaurante;
 
 	public Long getId() {
 		return id;
@@ -27,6 +27,14 @@ public class Cozinha {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String getNome() {
@@ -37,12 +45,36 @@ public class Cozinha {
 		this.nome = nome;
 	}
 
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
+	}
+
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
 	}
 
 	@Override
@@ -53,7 +85,7 @@ public class Cozinha {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cozinha other = (Cozinha) obj;
+		Produto other = (Produto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

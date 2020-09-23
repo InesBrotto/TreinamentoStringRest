@@ -4,22 +4,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonRootName;
+import javax.persistence.ManyToOne;
 
 @Entity
-// muda o nome, para o XML, do no principal 
-@JsonRootName("cozinha")
-public class Cozinha {
+public class Cidade {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	// retira o campo da apresentacao do XML/JSON
-	//@JsonIgnore
-	// Muda o nome do campo que sera mostrado no XML/JSON
-	//@JsonProperty("titulo")
+
+	private String descricao;
 	private String nome;
+	
+	@ManyToOne
+	private Estado estado;
 
 	public Long getId() {
 		return id;
@@ -29,12 +27,28 @@ public class Cozinha {
 		this.id = id;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	@Override
@@ -53,7 +67,7 @@ public class Cozinha {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cozinha other = (Cozinha) obj;
+		Cidade other = (Cidade) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

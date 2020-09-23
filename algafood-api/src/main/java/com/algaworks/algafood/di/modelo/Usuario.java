@@ -1,25 +1,21 @@
 package com.algaworks.algafood.di.modelo;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
-
 @Entity
-// muda o nome, para o XML, do no principal 
-@JsonRootName("cozinha")
-public class Cozinha {
+public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	// retira o campo da apresentacao do XML/JSON
-	//@JsonIgnore
-	// Muda o nome do campo que sera mostrado no XML/JSON
-	//@JsonProperty("titulo")
 	private String nome;
+	private String email;
+	private String senha;
+	private LocalDate dataCadastro;
 
 	public Long getId() {
 		return id;
@@ -45,6 +41,30 @@ public class Cozinha {
 		return result;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public LocalDate getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDate dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -53,7 +73,7 @@ public class Cozinha {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cozinha other = (Cozinha) obj;
+		Usuario other = (Usuario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

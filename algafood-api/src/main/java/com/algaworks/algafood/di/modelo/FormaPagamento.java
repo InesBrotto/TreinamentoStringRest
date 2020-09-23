@@ -5,21 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
-
 @Entity
-// muda o nome, para o XML, do no principal 
-@JsonRootName("cozinha")
-public class Cozinha {
+public class FormaPagamento {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	// retira o campo da apresentacao do XML/JSON
-	//@JsonIgnore
-	// Muda o nome do campo que sera mostrado no XML/JSON
-	//@JsonProperty("titulo")
-	private String nome;
+
+	private String descricao;
 
 	public Long getId() {
 		return id;
@@ -29,12 +22,12 @@ public class Cozinha {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	@Override
@@ -53,7 +46,7 @@ public class Cozinha {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cozinha other = (Cozinha) obj;
+		FormaPagamento other = (FormaPagamento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
