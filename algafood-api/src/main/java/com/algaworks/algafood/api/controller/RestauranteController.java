@@ -72,7 +72,7 @@ public class RestauranteController {
 			// parametro
 			// para o objeto restaurante do banco de dados, a fim de que seja atualizado no
 			// banco de dados.
-			// O terceiro parametro especifica os campos que voce NÃO quer alterar (neste caso nao quero alterar nem o id e nem a lista de formas de pagamento
+			// O terceiro parametro especifica os campos que voce NÃO quer alterar (neste caso nao quero alterar
 			BeanUtils.copyProperties(restaurante, restauranteAtual.get(), "id", "formasPagamento", "produtos");
 			try {
 				Restaurante restauranteNovo = cadastroRestaurante.salvar(restauranteAtual.get());
